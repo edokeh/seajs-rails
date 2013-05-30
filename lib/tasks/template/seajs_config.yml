@@ -1,0 +1,5 @@
+seajs_path: <%= seajs_path %>
+family: <%= family %>
+output:
+  relative: []
+  all: []
