@@ -1,7 +1,8 @@
 # Sea.js for Rails 3.x
 
-> Integrates Sea.js into the Rails 3 Asset Pipeline.
-> 提供一种将 Sea.js 与 Asset Pipeline 结合起来的方式，底层通过 spm-chaos-build 来实现
+Integrates Sea.js into the Rails 3 Asset Pipeline.
+
+提供一种将 Sea.js 与 Asset Pipeline 结合起来的方式，底层通过 spm-chaos-build 来实现
 
 -----
 
@@ -41,8 +42,7 @@ output:  # 合并策略，具体参见 spm-chaos-build
   all: []
 ```
 
-ouput 项其实就是 package.json 中的 spm.output
-支持 relative（只合并相对路径）, all（合并所有路径） 两种方式
+ouput 项其实就是 package.json 中的 spm.output，支持 relative（只合并相对路径）/ all（合并所有路径）两种方式
 
 目录说明：
 
@@ -60,7 +60,8 @@ ouput 项其实就是 package.json 中的 spm.output
     │  │  │              └─2.0.0
     │  │  └─stylesheets
 
-与普通的开发基本一致，只是在 javascripts 目录下多了一个 sea-modules 作为 Sea.js 的 base 目录  
+与普通的开发基本一致，只是在 javascripts 目录下多了一个 sea-modules 作为 Sea.js 的 base 目录
+
 普通的业务代码依然放置在 javascripts 目录下（非 CMD 模块的 JS 也放在这里）
 
 ### 使用
@@ -71,8 +72,8 @@ ouput 项其实就是 package.json 中的 spm.output
 <%= seajs_tag %>
 <%= seajs_use 'blogs/show' %>
 ```
-seajs_tag 用于引入 seajs ，并且会根据是否合并引入必要的配置
-seajs_use 用于加载 CMD 模块，支持传递多个模块名称
+* seajs_tag 用于引入 seajs ，并且会根据是否合并引入必要的配置
+* seajs_use 用于加载 CMD 模块，支持传递多个模块名称
 
 ### 合并
 
@@ -81,6 +82,7 @@ seajs_use 用于加载 CMD 模块，支持传递多个模块名称
     $ rake assets:precompile
 
 Sea.js 的合并过程不会与原有的 assets pipeline 冲突，但是请将配置分开
+
 * 需要合并的 CMD 模块文件请在 seajs_config.yml 中配置
 * 而非 CMD 模块的文件请依然通过 `config.assets.precompile` 配置
 
