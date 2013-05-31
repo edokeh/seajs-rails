@@ -1,7 +1,9 @@
 # Sea.js for Rails 3.x
 
-Integrates Sea.js into the Rails 3 Asset Pipeline.  
-提供一种将 Sea.js 与 Asset Pipeline 结合起来的方式，底层通过 spm-chaos-build 来实现
+> Integrates Sea.js into the Rails 3 Asset Pipeline.
+> 提供一种将 Sea.js 与 Asset Pipeline 结合起来的方式，底层通过 spm-chaos-build 来实现
+
+-----
 
 ## 安装
 
@@ -58,7 +60,7 @@ ouput 项其实就是 package.json 中的 spm.output
     │  │  │              └─2.0.0
     │  │  └─stylesheets
 
-与普通的开发基本一致，只是在 javascripts 目录下多了一个 sea-modules 作为 Sea.js 的 base 目录
+与普通的开发基本一致，只是在 javascripts 目录下多了一个 sea-modules 作为 Sea.js 的 base 目录  
 普通的业务代码依然放置在 javascripts 目录下（非 CMD 模块的 JS 也放在这里）
 
 ### 使用
