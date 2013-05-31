@@ -14,7 +14,7 @@ namespace :seajs do
   desc 'init setup'
   task :setup => :test_env do
     # install seajs
-    path = Rails.root.join('app', 'assets', 'javascript')
+    path = Rails.root.join('app', 'assets', 'javascripts')
     `cd #{path} && spm install seajs@#{Seajs::Rails::SEAJS_VERSION}`
 
     # generate seajs config file
@@ -72,5 +72,5 @@ namespace :seajs do
 end
 
 Rake::Task["assets:precompile"].enhance do
-  Rake::Task["seajs:compile:all"].invoke
+  Rake::Task["seajs:compile:external"].invoke
 end

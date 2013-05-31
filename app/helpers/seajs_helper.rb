@@ -1,4 +1,5 @@
 module SeajsHelper
+  # generate seajs.use()
   def seajs_use(*modules)
     seajs_config = Rails.application.config.seajs
 
@@ -17,6 +18,7 @@ module SeajsHelper
     html.html_safe
   end
 
+  # include seajs script and map config
   def seajs_tag
     seajs_config = Rails.application.config.seajs
 
