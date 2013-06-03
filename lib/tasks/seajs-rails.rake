@@ -3,9 +3,8 @@ require 'seajs/rails/version'
 namespace :seajs do
   desc "Check whether spm & spm-chaos-build is ok"
   task :test_env do
-    begin
-      `spm-chaos-build -h`
-    rescue Errno::ENOENT
+    `spm-chaos-build -h`
+    unless $?.success?
       puts 'Please intall spm-chaos-build first.'
       exit 1
     end
@@ -27,11 +26,8 @@ namespace :seajs do
   end
 
   namespace :compile do
-    task :external do
-      ruby_rake_task "seajs:compile:all"
-    end
-
-    task :all => ["seajs:compile:prepare_dir",
+    task :all => ["seajs:test_env",
+                  "seajs:compile:prepare_dir",
                   "seajs:compile:generate_json",
                   "seajs:compile:build",
                   "seajs:compile:clean"]
@@ -48,7 +44,7 @@ namespace :seajs do
 
         seajs_config = Rails.application.config.seajs
         seajs_config.load_config_from_file
-        pkg = {:family => seajs_config.family, :spm => {:output => seajs_config.output}}
+        pkg = {:family => seajs_config.family, :spm => {:output => seajs_config.output, :alias => seajs_config.alias}}
         f.write pkg.to_json
       end
     end
@@ -64,13 +60,14 @@ namespace :seajs do
     end
 
     task :clean do
-      cp_r File.join(Rails.public_path, 'assets', 'javascripts', 'sea-modules', '.'), File.join(Rails.public_path, 'assets', 'sea-modules')
-      rm_rf File.join(Rails.public_path, 'assets', 'javascripts')
-      rm_rf File.join(Rails.public_path, 'assets', 'Gruntfile.js')
+      public_assets_path = Pathname.new(File.join(Rails.public_path, Rails.application.config.assets.prefix))
+      cp_r public_assets_path.join('javascripts', 'sea-modules', '.'), public_assets_path.join('sea-modules')
+      rm_rf public_assets_path.join('javascripts')
+      rm_rf public_assets_path.join('Gruntfile.js')
     end
   end
 end
 
-Rake::Task["assets:precompile"].enhance do
-  Rake::Task["seajs:compile:external"].invoke
+Rake::Task["assets:precompile:primary"].enhance do
+  Rake::Task["seajs:compile:all"].invoke
 end

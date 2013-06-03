@@ -17,7 +17,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  #gem.add_dependency "railties", ">= 3.1.1", "< 4.1"
+  gem.add_dependency "railties", ">= 3.1.1", "< 4.1"
 
   gem.requirements << "spm-chaos-build is required for 'rake assets:precompile'. See https://github.com/edokeh/spm-chaos-build"
 end
