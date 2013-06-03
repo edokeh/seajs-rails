@@ -4,3 +4,5 @@ output:
   relative:
     - application.js
   all: []
+alias:
+  $: $
