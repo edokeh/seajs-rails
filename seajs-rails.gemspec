@@ -18,6 +18,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency "railties", ">= 3.1.1", "< 4.1"
+  gem.add_dependency "erubis", "~> 2.7.0"
 
   gem.requirements << "spm-chaos-build is required for 'rake assets:precompile'. See https://github.com/edokeh/spm-chaos-build"
 end

@@ -1,4 +1,5 @@
 require 'seajs/rails/version'
+require 'erubis'
 
 namespace :seajs do
   desc "Check whether spm & spm-chaos-build is ok"

@@ -3,10 +3,16 @@ module SeajsHelper
   def seajs_use(*modules)
     seajs_config = Rails.application.config.seajs
 
-    if seajs_config.compiled?
-      modules.map! { |m| seajs_config.family + '/' + m }
-    else
-      modules.map! { |m| '/assets/' + m }
+    modules.map! do |m|
+      if m.start_with? '#'
+        m[1..-1]
+      else
+        if seajs_config.compiled?
+          seajs_config.family + '/' + m
+        else
+          '/assets/' + m
+        end
+      end
     end
 
     html = <<-html
