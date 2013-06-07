@@ -35,8 +35,8 @@ namespace :seajs do
 
     desc 'copy `app/assets/javascripts` to ``/public/assets/``'
     task :prepare_dir do
-      cp_r Rails.root.join('app', 'assets', 'javascripts'), File.join(Rails.public_path, 'assets'), :remove_destination => true
-      cp File.expand_path('../template/Gruntfile.js', __FILE__), File.join(Rails.public_path, 'assets')
+      cp_r Rails.root.join('app', 'assets', 'javascripts'), public_assets_path, :remove_destination => true
+      cp File.expand_path('../template/Gruntfile.js', __FILE__), public_assets_path
     end
 
     desc 'generate package.json by seajs_config.yml'
@@ -61,10 +61,13 @@ namespace :seajs do
     end
 
     task :clean do
-      public_assets_path = Pathname.new(File.join(Rails.public_path, Rails.application.config.assets.prefix))
-      cp_r public_assets_path.join('javascripts', 'sea-modules', '.'), public_assets_path.join('sea-modules')
-      rm_rf public_assets_path.join('javascripts')
-      rm_rf public_assets_path.join('Gruntfile.js')
+      cp_r public_assets_path('javascripts', 'sea-modules', '.'), public_assets_path('sea-modules')
+      rm_rf public_assets_path('javascripts')
+      rm_rf public_assets_path('Gruntfile.js')
+    end
+
+    def public_assets_path(*path)
+      File.join(Rails.public_path, Rails.application.config.assets.prefix, *path)
     end
   end
 end
