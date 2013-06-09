@@ -16,14 +16,17 @@ namespace :seajs do
     # install seajs
     path = Rails.root.join('app', 'assets', 'javascripts')
     `cd #{path} && spm install seajs@#{Seajs::Rails::SEAJS_VERSION}`
+    puts "installed seajs@#{Seajs::Rails::SEAJS_VERSION}"
 
     # generate seajs config file
-    File.open(Rails.root.join('config', 'seajs_config.yml'), 'w') do |f|
+    config_path = Rails.root.join('config', 'seajs_config.yml')
+    File.open(config_path, 'w') do |f|
       config_temp = File.expand_path('../template/seajs_config.yml', __FILE__)
       templ = Erubis::Eruby.new(File.open(config_temp).read)
       f.write templ.result(:seajs_path => "seajs/seajs/#{Seajs::Rails::SEAJS_VERSION}/sea.js",
                            :family => Rails.application.class.parent_name.downcase)
     end
+    puts "generated config file at #{config_path}"
   end
 
   namespace :compile do
