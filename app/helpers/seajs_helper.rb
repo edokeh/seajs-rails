@@ -1,5 +1,7 @@
 module SeajsHelper
-  def modules_seajs_use(*modules)
+
+  # get module name
+  def seajs_modules(*modules)
     seajs_config = Rails.application.config.seajs
 
     modules.map! do |m|
@@ -15,6 +17,7 @@ module SeajsHelper
     end
     modules.to_s.html_safe
   end
+
   # generate seajs.use()
   def seajs_use(*modules)
     html = <<-html

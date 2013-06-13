@@ -74,6 +74,8 @@ ouput 项其实就是 package.json 中的 spm.output，支持 relative（只合�
 ```
 * seajs_tag 用于引入 seajs ，并且会根据是否合并引入必要的配置
 * seajs_use 用于加载 CMD 模块，支持传递多个模块名称
+* 如果需要 use 通用模块（位于 sea-modules 目录下），请在模块名前加上#，如 `<%= seajs_use '#gallery/moment/2.0.0/moment' %>`
+* 如果想要使用带 callback 的 use 函数，可使用 seajs_modules 方法，如 `seajs.use(<%= seajs_modules 'blogs/show' %>, function(show){ })`
 
 ### 合并
 
@@ -87,3 +89,16 @@ Sea.js 的合并过程不会与原有的 assets pipeline 冲突，但是请将�
 * 而非 CMD 模块的文件请依然通过 `config.assets.precompile` 配置
 
 合并完成后，不需要改动页面，两个 helper 方法能够自动处理
+
+**特别注意：**请关注系统的 NODE_PATH 环境变量，如果不配置的话会导致 spm-chaos-build 执行有误
+
+
+## 参考文章
+
+[Sea.js 如何与 Rails 结合](http://chaoskeh.com/blog/how-to-integrates-seajs-with-rails.html)
+
+## 变动历史
+
+**2013-06-13** `0.0.8`
+
+增加 seajs_modules 方法，感谢 @blankyao
