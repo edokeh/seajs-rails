@@ -22,7 +22,7 @@ module SeajsHelper
   def seajs_use(*modules)
     html = <<-html
     <script>
-    seajs.use(#{modules_seajs_use(*modules)})
+    seajs.use(#{seajs_modules(*modules)})
     </script>
     html
 
