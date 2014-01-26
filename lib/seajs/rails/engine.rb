@@ -13,7 +13,9 @@ module Seajs
 
         # find the default precompile filter and modify it
         index = config.assets.precompile.find_index do |filter|
-          filter.respond_to?(:call) && filter.call('sea.js.map')
+          if filter.respond_to?(:call)
+            filter.arity == 1 ? filter.call('sea.js.map') : filter.call('sea.js.map', '/app/assets')
+          end
         end
 
         if index

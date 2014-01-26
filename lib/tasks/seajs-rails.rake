@@ -38,6 +38,7 @@ namespace :seajs do
 
     desc 'copy `app/assets/javascripts` to ``/public/assets/``'
     task :prepare_dir do
+      # run this task after assets:precompile, or mkdir public/assets first
       cp_r Rails.root.join('app', 'assets', 'javascripts'), public_assets_path, :remove_destination => true
       cp File.expand_path('../template/Gruntfile.js', __FILE__), public_assets_path
     end
@@ -75,6 +76,9 @@ namespace :seajs do
   end
 end
 
-Rake::Task["assets:precompile:primary"].enhance do
+# Rails4 compatibility
+assetsPrecompileTask = (Rake::Task.task_defined? "assets:precompile:primary") ? "assets:precompile:primary" : "assets:precompile"
+
+Rake::Task[assetsPrecompileTask].enhance do
   Rake::Task["seajs:compile:all"].invoke
 end
