@@ -44,6 +44,19 @@ output:  # 合并策略，具体参见 spm-chaos-build
 
 ouput 项其实就是 package.json 中的 spm.output，支持 relative（只合并相对路径）/ all（合并所有路径）两种方式
 
+**新增特性**：relative 配置现在支持这样的写法，即可以增加额外的合并规则
+
+```yaml
+output:
+  relative:
+    - application.js
+    - test/a.js:
+      - test/a.js
+      - test/b.js
+      - test/template/*.html.js
+    - test/c.js
+```
+
 目录说明：
 
     your-rails
@@ -98,6 +111,11 @@ Sea.js 的合并过程不会与原有的 assets pipeline 冲突，但是请将�
 [Sea.js 如何与 Rails 结合](http://chaoskeh.com/blog/how-to-integrates-seajs-with-rails.html)
 
 ## 变动历史
+
+**2014-01-27** `0.0.10`
+
+* 增加对 Rails 4.0 的兼容性支持
+* 根据 spm-chaos-build 的新特性，现在支持更细粒度的合并规则配置
 
 **2013-06-13** `0.0.8`
 
